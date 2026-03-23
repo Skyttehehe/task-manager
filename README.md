@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Probably adding validation that the id can not be the same, added the possibility that you can pick your own id to make it easier to test, if id is empty right now it just makes a random id, edge case the id is a dupe. probably fixing that with more time
 
-## Getting Started
+The post function got a bit out of hand, probably would clean that up. my assumption is that only the title is required, and everything else is optional.
 
-First, run the development server:
+I would probably improve the tests below, and add some more
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+im using postman to test 
+Current tests
+https://skyttehehe-5857025.postman.co/workspace/skytte's-Workspace~3731c2b7-776e-44ab-8d64-b4540e9f8a9b/collection/53421484-c573f2f7-9d2c-41e9-acc9-6f36286cb2e0?action=share&source=copy-link&creator=53421484
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Post task
+http://localhost:3000/api/tasks
+{ "id": "abc123", "title": "sell groceries", "completed": false}
+//Required fields: title
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Get all tasks 
+http://localhost:3000/api/tasks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Get a single task by id
+http://localhost:3000/api/tasks/abc123
 
-## Learn More
+PATCH
+http://localhost:3000/api/tasks/abc123
+{ "title": "buy groceries", "completed": true}
+//Updating both title and completed status
 
-To learn more about Next.js, take a look at the following resources:
+Delete
+http://localhost:3000/api/tasks/abc123
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Get all completed
+http://localhost:3000/api/tasks?completed=true
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Get all tasks desc
+http://localhost:3000/api/tasks?sort=title&order=desc
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Get all completed tasks desc
+http://localhost:3000/api/tasks?completed=true&sort=createdAt&order=desc
